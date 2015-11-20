@@ -1,0 +1,11 @@
+<apex:page standardController="MDM_Bulkupload__c" extensions="MDM_Location_BulkUploadStatusExt"   readOnly="true" contentType="application/vnd.ms-excel#UploadStatusExport.xls">
+ 
+    <apex:pageBlock >
+                     
+              <apex:pageblocktable value="{!Uploadlocations}" var="Obj">
+              <apex:column value="{!Obj.Uploaded_Row_Original__c}" headerValue="Location Data"  /> 
+              <apex:column value="{!Obj.Status_Message__c }" headerValue="Status Message "  />
+            </apex:pageblocktable> 
+    </apex:pageBlock>   
+ 
+</apex:page>

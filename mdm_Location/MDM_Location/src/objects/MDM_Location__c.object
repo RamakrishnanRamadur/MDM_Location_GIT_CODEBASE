@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>MDM_Location</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Address_1__c</fullName>
+        <description>Address 1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Address 1</inlineHelpText>
+        <label>Address line 1:</label>
+        <length>150</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_2__c</fullName>
+        <description>Address 2</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Address 2</inlineHelpText>
+        <label>Address line 2:</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_3__c</fullName>
+        <description>Address 3</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Address 3</inlineHelpText>
+        <label>Address line 3:</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Banner__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Banner</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Banner</inlineHelpText>
+        <label>Banner</label>
+        <referenceTo>MDM_Banner__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CensusBlock__c</fullName>
+        <externalId>false</externalId>
+        <label>Census Block</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Census_Tract__c</fullName>
+        <description>Census Tract</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Census Tract</inlineHelpText>
+        <label>Census Tract</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <description>City</description>
+        <externalId>false</externalId>
+        <inlineHelpText>City</inlineHelpText>
+        <label>City</label>
+        <length>100</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ConfirmationSourceSystem__c</fullName>
+        <description>The source system, One last updated this record.</description>
+        <externalId>false</externalId>
+        <label>ConfirmationSourceSystem</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Country</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Country</inlineHelpText>
+        <label>Country</label>
+        <referenceTo>MDM_Country__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>County__c</fullName>
+        <description>County</description>
+        <externalId>false</externalId>
+        <inlineHelpText>County</inlineHelpText>
+        <label>County</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DMA__c</fullName>
+        <externalId>false</externalId>
+        <label>DMA</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DataOverrideFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag used to enable or disable the location data  enrichment (in BOOMI MDM) during the integration process.</description>
+        <externalId>false</externalId>
+        <label>Data Override Flag</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Effective_End_Date__c</fullName>
+        <description>Effective End Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Effective End Date</inlineHelpText>
+        <label>Effective End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Effective_Start_Date__c</fullName>
+        <description>Effective Start Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Effective Start Date</inlineHelpText>
+        <label>Effective Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FIP__c</fullName>
+        <externalId>false</externalId>
+        <label>FIPs</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GeoLevel__c</fullName>
+        <description>Lat/Long Accuracy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lat/Long Accuracy</inlineHelpText>
+        <label>GeoLevel</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GeoScore__c</fullName>
+        <description>Lat/Lon Score</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lat/Lon Score</inlineHelpText>
+        <label>GeoScore</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GoldenRecordID__c</fullName>
+        <description>Golden Record ID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Golden Record ID from BOOMI MDM</inlineHelpText>
+        <label>Golden Record ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GooglePlaceID__c</fullName>
+        <description>GooglePlaceID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GooglePlaceID</inlineHelpText>
+        <label>GooglePlaceID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsBoomiMDMUpsert__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag has no value as location attribute. It is used by internal triggers to override validate upsert value passed by user. if the upsert request by Boomi MDM this flag will be true, All other request it is false.   validate UPSERT override based on this value.</description>
+        <externalId>false</externalId>
+        <label>IsBoomiMDMUpsert</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LastFieldConfirmationDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Field Confirmation Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Enrichment_Date__c</fullName>
+        <description>Last Enrichment Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last Enrichment Date</inlineHelpText>
+        <label>Last Enrichment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <description>Latitude</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Latitude</inlineHelpText>
+        <label>Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationIsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Location Status</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Location Status</inlineHelpText>
+        <label>Location Is Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LocationStatus__c</fullName>
+        <description>Store Outlet Status Indicator</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Store Outlet Status Indicator</inlineHelpText>
+        <label>Location Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Future</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deleted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reclassified</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Replaced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Location_Number__c</fullName>
+        <description>Location Number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Location Number</inlineHelpText>
+        <label>Store Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location_Type__c</fullName>
+        <description>Location Type [Emploee / Store]</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Emploee / Store</inlineHelpText>
+        <label>Location Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Domicile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <description>Longitude</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Longitude</inlineHelpText>
+        <label>Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MSA__c</fullName>
+        <externalId>false</externalId>
+        <label>MSA</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwningCompany__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>OwningCompany</description>
+        <externalId>false</externalId>
+        <inlineHelpText>OwningCompany</inlineHelpText>
+        <label>Owning Company</label>
+        <referenceTo>MDM_OwningCompany__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations_OwningCompany</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Postal Code</label>
+        <length>50</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReplacedByID__c</fullName>
+        <externalId>false</externalId>
+        <label>Replaced By ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SourceSystem__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>SourceSystem</description>
+        <externalId>false</externalId>
+        <label>SourceSystem</label>
+        <referenceTo>MDM_Source__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>State/Province</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>MDM_State__c.Country__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Country__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>MDM_State__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Store_Phone_Number__c</fullName>
+        <description>Store Phone Number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Store Phone Number</inlineHelpText>
+        <label>Store Phone Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TDLinxNumber__c</fullName>
+        <description>TDLinx #</description>
+        <externalId>false</externalId>
+        <inlineHelpText>TDLinx #</inlineHelpText>
+        <label>TDLinxNumber</label>
+        <length>7</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_Zone__c</fullName>
+        <description>Time Zone</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Time Zone</inlineHelpText>
+        <label>Time Zone</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TradeChannel__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Trade Channel</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Trade Channel</inlineHelpText>
+        <label>TradeChannel</label>
+        <referenceTo>MDM_TradeChannel__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TradeSubChannel__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>TradeSubChannel</description>
+        <externalId>false</externalId>
+        <inlineHelpText>TradeSubChannel</inlineHelpText>
+        <label>TradeSubChannel</label>
+        <referenceTo>MDM_TradeSubChannel__c</referenceTo>
+        <relationshipLabel>Locations</relationshipLabel>
+        <relationshipName>Locations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>UTCOffset__c</fullName>
+        <externalId>false</externalId>
+        <label>UTC Time Zone Offset</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ValidateUpsert__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Submit for MDM validation. Based on this flag this new or updated record will be moved to stage for further validation.</description>
+        <externalId>false</externalId>
+        <label>ValidateUpsert</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Zip4__c</fullName>
+        <externalId>false</externalId>
+        <label>Zip4</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Location</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>ValidateUpsert__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>GooglePlaceID__c</columns>
+        <columns>GoldenRecordID__c</columns>
+        <columns>GeoLevel__c</columns>
+        <columns>GeoScore__c</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>DataOverrideFlag__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Time_Zone__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Location Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Locations</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Location_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>TDLinxNumber__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Address_1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>City__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>State__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Address_1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>City__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Postal_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>State__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Banner__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OwningCompany__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>MDM_Location_Val_Country_StateCountry</fullName>
+        <active>true</active>
+        <description>MDM_Location_Match_Country_StateCountry
+To validate the state and its country.</description>
+        <errorConditionFormula>State__r.Country__c != Country__c</errorConditionFormula>
+        <errorMessage>State doesn&apos;t belongs to selected country.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MDM_Location_Val_Status_Is_Required</fullName>
+        <active>true</active>
+        <description>MDM_Location
+Store status is required</description>
+        <errorConditionFormula>ISPICKVAL(LocationStatus__c , &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>LocationStatus__c</errorDisplayField>
+        <errorMessage>Store status is required.</errorMessage>
+    </validationRules>
+</CustomObject>

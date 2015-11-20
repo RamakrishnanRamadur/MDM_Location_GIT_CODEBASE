@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>MDM_AddLocationsExtTest</members>
+        <members>MDM_BulkUploadLocationTest</members>
+        <members>MDM_BulkuploadExt</members>
+        <members>MDM_BulkuploadExtbt</members>
+        <members>MDM_Location_AddLocationsExt</members>
+        <members>MDM_Location_BulkUploadLocationExt</members>
+        <members>MDM_Location_BulkUploadLocationExtbt</members>
+        <members>MDM_Location_BulkUploadStatusExt</members>
+        <members>MDM_Location_BulkUploadStatusExtTest</members>
+        <members>MDM_Location_RefreshRowsCountExtbt</members>
+        <members>MDM_Location_StatisticsExt</members>
+        <members>MDM_Location_StatisticsExtTest</members>
+        <members>MDM_Location_UpsertLocationTest</members>
+        <members>MDM_Location_ValidateLocationbt</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>MDM_AddLocation</members>
+        <members>MDM_Location_Statistics</members>
+        <members>MDM_UploadLocation</members>
+        <members>MDM_UploadStatus</members>
+        <members>MDM_UploadStatusExport</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>MDM_Location_BeforeInsertLocation</members>
+        <members>MDM_Location_BeforeInsertLocation_Stage</members>
+        <members>MDM_Location_UpsertLocation</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>MDM_Location</members>
+        <members>MDM_Location_Reference</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>MDM_Banner__c</members>
+        <members>MDM_BugTracker__c</members>
+        <members>MDM_Bulkupload__c</members>
+        <members>MDM_Configuration__c</members>
+        <members>MDM_Country__c</members>
+        <members>MDM_GRID_X_SourceID__c</members>
+        <members>MDM_Location_Stage__c</members>
+        <members>MDM_Location_Statistic__c</members>
+        <members>MDM_Location__c</members>
+        <members>MDM_OwningCompany__c</members>
+        <members>MDM_Source__c</members>
+        <members>MDM_State__c</members>
+        <members>MDM_TradeChannel__c</members>
+        <members>MDM_TradeSubChannel__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>MDM_Banner__c</members>
+        <members>MDM_BugTracker__c</members>
+        <members>MDM_Bulkupload__c</members>
+        <members>MDM_Configuration__c</members>
+        <members>MDM_Country__c</members>
+        <members>MDM_GRID_X_SourceID__c</members>
+        <members>MDM_Location_Add_New_Location</members>
+        <members>MDM_Location_Stage__c</members>
+        <members>MDM_Location_Statistic__c</members>
+        <members>MDM_Location_UploadLocations</members>
+        <members>MDM_Location_UploadStatus</members>
+        <members>MDM_Location__c</members>
+        <members>MDM_OwningCompany__c</members>
+        <members>MDM_Source__c</members>
+        <members>MDM_State__c</members>
+        <members>MDM_TradeChannel__c</members>
+        <members>MDM_TradeSubChannel__c</members>
+        <members>MDM_location_statistics</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>MDM_Banner__c-MDM_Banner Layout</members>
+        <members>MDM_BugTracker__c-MDM_BugTracker Layout</members>
+        <members>MDM_Bulkupload__c-Master_Location_BulkloadLocation Layout</members>
+        <members>MDM_Configuration__c-MDM_Configuration Layout</members>
+        <members>MDM_Country__c-MDM_Country Layout</members>
+        <members>MDM_GRID_X_SourceID__c-MDM_GRID_X_SourceID Layout</members>
+        <members>MDM_Location_Stage__c-MDM_Location_Stage Layout</members>
+        <members>MDM_Location_Statistic__c-INFOCODE Layout</members>
+        <members>MDM_Location_Statistic__c-MDM_Location_Statistics_Layout</members>
+        <members>MDM_Location__c-MDM_Location_AddNew_Layout</members>
+        <members>MDM_Location__c-MDM_Location_AllColumns_Layout</members>
+        <members>MDM_OwningCompany__c-MDM_OwningCompany Layout</members>
+        <members>MDM_Source__c-MDM_Source Layout</members>
+        <members>MDM_State__c-MDM_State Layout</members>
+        <members>MDM_TradeChannel__c-MDM_TradeChannel Layout</members>
+        <members>MDM_TradeSubChannel__c-MDM_TradeSubChannel Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>MDMLoc_Contributor</members>
+        <members>MDMLoc_DataSteward</members>
+        <members>MDMLoc_ReadOnly</members>
+        <members>MDM_Business_Admin</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>35.0</version>
+</Package>

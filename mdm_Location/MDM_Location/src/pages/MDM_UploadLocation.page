@@ -1,0 +1,139 @@
+<apex:page standardController="MDM_Bulkupload__c"
+    extensions="MDM_Location_BulkUploadLocationExt,MDM_Location_BulkUploadLocationExtbt" docType="html-5.0"
+    tabStyle="MDM_Location_UploadLocations__tab">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <h1>Master Data Management: Location</h1>
+      <apex:form >
+        <apex:pagemessages escape="false" />
+
+        <apex:actionStatus id="loadingStatus">
+            <apex:facet name="start">
+                <img class="loading-gif" src="/img/loading24.gif" width="24"
+                    height="24" />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <apex:pageBlock >
+            <apex:pageBlockSection Title="Welcome to Location Upload" columns="2"
+                collapsible="false">
+                <span
+                    id="Single_Label"
+                    style="color: #DD8328;">Please select your CSV file to
+                    upload Locations. <br></br>
+                <br></br> [Download upload template file from here] <a
+                    target="_blank"
+                    href="https://crossmark--MDMLoc.cs21.my.salesforce.com/sfc/p/q0000000BFXn/a/q000000000DP/mA6qcz5ZcU0HyePlSanVrd61MBawVw5Fg7vYplVmDJ4">
+                        here </a> <br></br>
+                </span>
+                <span>
+                <br></br>
+                </span>
+                <table>
+                    <tr>
+                        <td>Location Source:</td>
+                        <td><apex:selectList value="{!LocationSourceValue}" size="1">
+                                <apex:selectOptions value="{! LocationSource}" />
+                            </apex:selectList></td>
+                    </tr>
+                    <tr>
+                        <td>Name your Upload</td>
+                        <td><apex:input value="{!locationListName}" html-maxLength="20" /></td>
+                        <td colspan='1'><apex:inputFile value="{!csvFileBody}"
+                                title="Browse document" filename="{!csvFilenameString}" /></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><apex:commandButton id="importColl"
+                                value="Import Locations" action="{!importCSVFile}" /></td>
+                    </tr>
+                </table>
+                 
+
+
+            </apex:pageBlockSection>
+            <apex:pageBlock >
+
+
+            </apex:pageBlock>
+            <div id="DivSuccess">
+              <apex:pageBlockSection title="Debug Values" columns="1"
+                    rendered="{!IsDebug}" collapsible="false">
+                    <table>
+                     <tr>
+                         <td>  Number of rows</td>
+                         <td>  <apex:inputText value="{!NumberofSelectedUPloadrows}" html-readonly="true"/></td>
+                     </tr>
+                      <tr>
+                         <td>  debug text </td>
+                         <td>  <apex:inputText value="{!Debugtext}" html-readonly="true"/></td>
+                     </tr>
+                     </table>
+                     
+                </apex:pageBlockSection>
+              <!-- <apex:pageBlockSection title="Locations upload status" columns="1"
+                    rendered="{!locationStageList.size>0}" collapsible="false">
+                    <apex:commandButton value="Export to excel"
+                        action="{!Exporttoexcel}" />
+                    <apex:pageblocktable value="{!originalCSVRecords}" var="Obj">
+                        <apex:column value="{!Obj.LocationNumber}" headerValue="Number" />
+                        <apex:column value="{!Obj.LocationName}" headerValue="Name" />
+                        <apex:column value="{!Obj.Address1}" headerValue="Address" />
+                        <apex:column value="{!Obj.SF_ErrorMessage}"
+                            headerValue="Location upload status / ErrorMessage " />
+                    </apex:pageblocktable>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Invalid Records in file" columns="1"
+                    rendered="{!locationStageList.size>0}" collapsible="false">
+                    <apex:pageblocktable value="{!ErrinoriginalCSVRecords}" var="Obj">
+                        <apex:column value="{!Obj.LocationNumber}" headerValue="Number" />
+                        <apex:column value="{!Obj.LocationName}" headerValue="Name" />
+                        <apex:column value="{!Obj.Address1}" headerValue="Address" />
+                        <apex:column value="{!Obj.SF_ErrorMessage}"
+                            headerValue="Location upload status / ErrorMessage " />
+                    </apex:pageblocktable>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Valid Records in file" columns="1"
+                    rendered="{!locationStageList.size>0}" collapsible="false">
+
+                    <apex:pageblocktable value="{!locationStageList}" var="Obj">
+                        <apex:column value="{!Obj.Location_Number__c}"
+                            headerValue="Location Number" />
+                        <apex:column value="{!Obj.Name}" headerValue="Name" />
+                        <apex:column value="{!Obj.Address_1__c}" headerValue="Address" />
+
+
+                    </apex:pageblocktable>
+                </apex:pageBlockSection> -->
+            </div>
+
+
+
+           <div id="DivFailed">
+             <!--   <apex:pageBlockSection title="Failed Locations" columns="1"
+                    rendered="{!locationStageList.size>0}" collapsible="false">
+                    <apex:pageblocktable value="{!lstErr}" var="obj">
+                        <apex:column value="{!Obj.locationNumber}"
+                            headerValue="Location Number" />
+                        <apex:column value="{!Obj.reason}"
+                            headerValue="Reason for failure" />
+                        <apex:column value="{!Obj.LocName}" headerValue="Location Name" />
+                    </apex:pageblocktable>
+                </apex:pageBlockSection> 
+                -->
+            </div>
+ 
+
+
+
+
+        </apex:pageBlock>
+
+
+
+
+    </apex:form>
+
+
+</apex:page>

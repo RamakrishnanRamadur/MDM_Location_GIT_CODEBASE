@@ -1,0 +1,126 @@
+<apex:page standardController="MDM_Location__c" extensions="MDM_Location_AddLocationsExt" docType="html-5.0" tabStyle="MDM_Location_Add_New_Location__tab">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+    
+    $("#myform :input").tooltip({
+        
+        // place tooltip on the right edge
+        position: "center right",
+        
+        // a little tweaking of the position
+        offset: [-2, 10],
+        
+        // use the built-in fadeIn/fadeOut effect
+        effect: "fade",
+        
+        // custom opacity setting
+        opacity: 0.7
+        
+    });
+    </script>
+    
+    <style type="text/css">  
+        .tooltip {
+        background-color:#000;
+        border:1px solid #fff;
+        padding:10px 15px;
+        width:200px;
+        display:none;
+        color:#fff;
+        text-align:left;
+        font-size:12px;
+        
+        /* outline radius for mozilla/firefox only */
+        -moz-box-shadow:0 0 10px #000;
+        -webkit-box-shadow:0 0 10px #000;
+        }
+        .imgclass:hover{  
+        background-repeat: no-repeat;  
+        width: 100px;  
+        height: 15px;     
+        background-position: right;
+        title="This is the text of the tooltip";  
+        
+        }  
+        .imgclass{  
+        background-repeat: no-repeat;  
+        width: 100px;  
+        height: 15px;  
+        }  
+    </style>  
+    <style>
+        #HeaderlinearBg1
+        {
+        width:99%; height:30px; 
+        border: 2px;
+        background: #d5ebfb; /* Old browsers */
+        background: -moz-linear-gradient(top,  #d5ebfb 0%, #89c3eb 36%, #abd3ee 69%, #ebf1f6 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5ebfb), color-stop(36%,#89c3eb), color-stop(69%,#abd3ee), color-stop(100%,#ebf1f6)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5ebfb', endColorstr='#ebf1f6',GradientType=0 ); /* IE6-9 */
+        
+        }
+    </style>
+    <div id = 'MaterContainer'>
+        <div id  ='HeaderlinearBg1' class= 'HeaderlinearBg1'>
+            <h1>Master Data Management: Location</h1>
+        </div>
+        <apex:form >
+            <apex:pagemessages />
+
+            <apex:actionStatus id="loadingStatus">
+                <apex:facet name="start">
+                    <img class="loading-gif" src="/img/loading24.gif" width="24" height="24"  />
+                </apex:facet>
+            </apex:actionStatus>
+
+            <apex:pageBlock >
+                <span id="ID1001" style="color:#DD8328;"><div class="requiredInput">
+                    <div class="requiredBlock"></div>
+                    Please enter all required fields. </div>
+                </span>
+                
+                <div class="requiredBlock"></div>
+                <apex:pageBlockSection Title="Location" columns="2"  collapsible="false">
+                    <apex:inputField label="Type" value="{!MDM_Location__c.Location_Type__c}"   required="true" style="title= rrr"  /> 
+                    <apex:inputField label="Store Number" value="{!MDM_Location__c.Location_Number__c}"/>
+                    <apex:inputField label="Country" value="{!MDM_Location__c.Country__c}" required="true"/>
+                    <apex:inputField label="Name" value="{!MDM_Location__c.Name}" required="true"/>
+                    <apex:inputField label="Owning Company" value="{!MDM_Location__c.OwningCompany__c}"   html-title="Please enter an Owning company name Or select from look up"/>
+                    <apex:inputField label="Address_1" value="{!MDM_Location__c.Address_1__c}"/>
+                    <apex:inputField label="Banner" value="{!MDM_Location__c.Banner__c}"  html-title="Please enter a Banner name Or select from look up"/>
+                    <apex:inputField label="Address_2" value="{!MDM_Location__c.Address_2__c}"/> 
+                    <apex:inputField label="Status" value="{!MDM_Location__c.LocationStatus__c}" required="true"/>
+                    <apex:inputField label="Address_3" value="{!MDM_Location__c.Address_3__c}"/>                        
+                    <span id="ID1001" style="color:#DD8328;"></span>
+                    <apex:inputField label="City" value="{!MDM_Location__c.City__c}" required="true"/>
+                    <span id="ID1001" style="color:#DD8328;"></span>
+                    <apex:inputField label="State/Province" value="{!MDM_Location__c.State__c}" required="true"/> 
+                    <span id="ID1001" style="color:#DD8328;"></span>
+                    <apex:inputField label="Postal Code" value="{!MDM_Location__c.Postal_Code__c}"/> 
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection Title="Additional Information" columns="2"  collapsible="false">       
+                    <apex:inputField label="Store Phone Number" value="{!MDM_Location__c.Store_Phone_Number__c}"/>
+                    <apex:inputField label="Latitude" value="{!MDM_Location__c.Latitude__c}"/>
+                    <apex:inputField label="Trade Channel" value="{!MDM_Location__c.TradeChannel__c}"/>
+                    <apex:inputField label="Longitude" value="{!MDM_Location__c.Longitude__c}"/>
+                    <apex:inputField label="Trade SubChannel" value="{!MDM_Location__c.TradeSubChannel__c}"/>
+                    <apex:commandButton action="{!saveAndReturn}" value=" Save And Return " />
+                    <span id="ID1001" style="color:#DD8328;"></span>
+                    <apex:commandButton action="{!Cancel}" value="Cancel" immediate="true" html-formnovalidate="formnovalidate" />
+                </apex:pageBlockSection>
+
+                <apex:pageBlock ></apex:pageBlock>
+                <div id="DivSuccess">
+                    
+                </div>
+                
+            </apex:pageBlock>
+        </apex:form>
+    </div> <!--MaterContainer -->
+</apex:page>

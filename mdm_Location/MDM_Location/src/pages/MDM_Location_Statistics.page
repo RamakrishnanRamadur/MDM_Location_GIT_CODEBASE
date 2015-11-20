@@ -1,0 +1,384 @@
+<apex:page standardcontroller="MDM_Location_Statistic__c" extensions="MDM_Location_StatisticsExt,MDM_Location_RefreshRowsCountExtbt" docType="html-5.0" readOnly="true" >
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+    
+    $("#myform :input").tooltip({
+        
+        // place tooltip on the right edge
+        position: "center right",
+        
+        // a little tweaking of the position
+        offset: [-2, 10],
+        
+        // use the built-in fadeIn/fadeOut effect
+        effect: "fade",
+        
+        // custom opacity setting
+        opacity: 0.7
+        
+    });
+    </script>
+    
+    <style type="text/css">  
+        .tooltip {
+        background-color:#000;
+        border:1px solid #fff;
+        padding:10px 15px;
+        width:200px;
+        display:none;
+        color:#fff;
+        text-align:left;
+        font-size:12px;
+        
+        /* outline radius for mozilla/firefox only */
+        -moz-box-shadow:0 0 10px #000;
+        -webkit-box-shadow:0 0 10px #000;
+        }
+        .imgclass:hover{  
+        background-repeat: no-repeat;  
+        width: 100px;  
+        height: 15px;     
+        background-position: right;
+        title="This is the text of the tooltip";  
+        
+        }  
+        .imgclass{  
+        background-repeat: no-repeat;  
+        width: 100px;  
+        height: 15px;  
+        }  
+        .readonly_tb{
+        width: 100px;  
+        height: 20px;
+        text-align: right;
+        
+        }
+        .Label_tb{
+        text-align: right;
+        }
+        .label {
+        text-align: right;
+        }
+    </style>  
+    <style>
+        #HeaderlinearBg1
+        {
+        width:99%; height:30px; 
+        border: 2px;
+        background: #d5ebfb; /* Old browsers */
+        background: -moz-linear-gradient(top,  #d5ebfb 0%, #89c3eb 36%, #abd3ee 69%, #ebf1f6 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5ebfb), color-stop(36%,#89c3eb), color-stop(69%,#abd3ee), color-stop(100%,#ebf1f6)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #d5ebfb 0%,#89c3eb 36%,#abd3ee 69%,#ebf1f6 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5ebfb', endColorstr='#ebf1f6',GradientType=0 ); /* IE6-9 */
+        
+        }
+    </style>
+    <div id = 'MaterContainer'>
+        <div id  ='HeaderlinearBg1' class= 'HeaderlinearBg1'>
+            <h1>MDM Location Data statistics</h1>
+        </div>
+        <apex:form >
+            <apex:pagemessages />
+            
+            <apex:actionStatus id="loadingStatus">
+                <apex:facet name="start">
+                    <img class="loading-gif" src="/img/loading24.gif" width="24" height="24"  />
+                </apex:facet>
+            </apex:actionStatus>
+            
+            <apex:pageBlock >
+                
+                
+                <div class="requiredBlock"></div>
+                <apex:pageBlockSection Title="Reference data" columns="2"  collapsible="false">
+                    
+                </apex:pageBlockSection>
+                <table>
+                    <tr>
+                        <td>** </td>
+                        <td> <label >Banners</Label>
+                        </td>
+                        <td> <label>OwningCompanies</Label>
+                        </td>
+                        <td> <label>Trade Channel</Label>
+                        </td>
+                        <td> <label>Trade Subchannel</Label>
+                        </td>
+                        <td> <label>Country</Label>
+                        </td>
+                        <td styleClass="Label_tb"> <label >States</Label>
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_BANNER}"  html-readonly="true" styleClass="readonly_tb" /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_OWNINGCOMPANIES}" html-readonly="true" styleClass="readonly_tb"  /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TRADECHANNELS}" html-readonly="true" styleClass="readonly_tb"  /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TRADESUBCHANNELS}" html-readonly="true"  styleClass="readonly_tb" /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_COUNTRIES}" html-readonly="true"  styleClass="readonly_tb" /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_STATES}" html-readonly="true"  styleClass="readonly_tb" /> 
+                        </td>
+                        
+                    </tr>
+                    
+                </table>
+                <apex:pageBlockSection Title="Location data" columns="2"  collapsible="false">
+                    <div>
+                        <label>By Country</Label>
+                    </div>
+                </apex:pageBlockSection>
+                <table>
+                    
+                    
+                    <tr>                        
+                        <td>** </td><td><label>US</Label></td><td><label>Canada</Label></td><td>Other Coutries</td><td></td><td></td><td>TOTAL</td> 
+                    </tr>  
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_US_LOCATIONS}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_CANADA_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_NON_US_OR_CANADA_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td><td>  
+                        </td>
+                        <td>  
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        
+                    </tr> 
+                </table>
+                <div>
+                    <label>By Status</Label>
+                </div>
+                <table>
+                    
+                    
+                    <tr>                        
+                        <td>** </td><td><label>OPEN</Label></td><td><label>CLOSED</Label></td><td>FUTURE</td><td>DELETED</td><td>REPLACED</td><td>Total</td> 
+                    </tr>  
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_OPEN_LOCATIONS}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_CLOSED_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_FUTURE_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_DELETED_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_REPLACED_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td>   <apex:inputText value="{!NO_OF_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr> 
+                </table>
+                
+                <div>
+                    <label>By Source System</Label>
+                </div>
+                <table>
+                    
+                    
+                    <tr>                        
+                        <td>** </td><td><label>SalesForce</Label></td><td><label>SalesTRAK</Label></td><td>COKE</td><td>TDLINX</td><td>Total</td><td></td> 
+                    </tr>  
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS_SRCSALESFORCE}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS_SRCSALESTRAK}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS_SRCCOKE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS_SRCTDLINX}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td>  <apex:inputText value="{!NO_OF_LOCATIONS}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td></td>
+                        
+                    </tr> 
+                </table>
+                <apex:pageBlockSection Title="Location_Stage data" columns="2"  collapsible="false"></apex:pageBlockSection>
+                <div>
+                    <label>Status</Label>
+                </div>
+                <table>
+                    
+                    <tr>                        
+                        <td>** </td><td><label>OPEN</Label></td><td><label>CLOSED</Label></td><td>FUTURE</td><td>DELETED</td><td>REPLACED</td><td>Total</td> 
+                    </tr>  
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_OPEN_LOCATIONS_STAGE}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_CLOSED_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_FUTURE_LOCATIONS_STAGE}" html-readonly="true" styleClass="readonly_tb" /> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_DELETED_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_REPLACED_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td>  <apex:inputText value="{!NO_OF_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr> 
+                    <tr>
+                        <td>**</td>
+                        <td><label>Waiting FOR MDM</Label> </td>
+                        <td><label>Moved to MDM </Label>Moved to MDM </td>
+                        <td><label>Total</Label> </td></tr>
+                    <tr> 
+                        <td>Rows</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_WAITINGFORMDM_LOCATIONS_STAGE}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_MOVEDTOMDM_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_LOCATIONS_STAGE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>  
+                        </td>
+                        
+                    </tr> 
+                </table>
+                <apex:pageBlockSection Title="GRID X SourceID" columns="2"  collapsible="false">
+                    
+                </apex:pageBlockSection>
+                <table>
+                    <tr>
+                        <td>** </td>
+                        <td> <label>Golden</Label>
+                        </td>
+                        <td> <label>Guarantine</Label>
+                        </td>
+                        <td> <label>Pending</Label>
+                        </td>
+                        <td> <label>Total</Label>
+                        </td>
+                        
+                        <td> <label>Golden[NoGRID]</Label>
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>SalesForce</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_SRCSALESFORCE}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_QUARANTINE_SRCSALESFORCE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_PENDING_SRCSALESFORCE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TOTAL_SRCSALESFORCE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_NOGRID_SRCSALESFORCE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr>
+                    <tr> 
+                        <td>TDLINX</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_SRCTDLINX}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_QUARANTINE_SRCTDLINX}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_PENDING_SRCTDLINX}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TOTAL_SRCTDLINX}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_NOGRID_SRCSALESTRAK}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr>
+                    <tr> 
+                        <td>SalesTRAK</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_SRCSALESTRAK}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_QUARANTINE_SRCSALESTRAK}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_PENDING_SRCSALESTRAK}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TOTAL_SRCSALESTRAK}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_NOGRID_SRCTDLINX}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr>
+                    <tr> 
+                        
+                        <td>Coke</td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_SRCCOKE}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_QUARANTINE_SRCCOKE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_PENDING_SRCCOKE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!NO_OF_TOTAL_SRCCOKE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        <td> <apex:inputText value="{!NO_OF_GOLDEN_NOGRID_SRCCOKE}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                    </tr>
+                    <tr> 
+                        <td>TOTAL </td>  <td> </td><td> </td><td></td><td><apex:inputText value="{!NO_OF_GRID_X_SOURCEID}" html-readonly="true"  styleClass="readonly_tb"/> </td>
+                    </tr>
+                    <tr> 
+                        <td>***</td><td>SalesForce</td><td>TDLINX</td><td>SalesTrak</td><td>Coke</td>
+                    </tr>
+                    <tr><td>RECORDID</td>
+                        <td> <apex:inputText value="{!srcSalesforceID}" html-readonly="true" styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!srcTDLINXID}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!srccokeID}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        <td> <apex:inputText value="{!srcSalestrakID}" html-readonly="true"  styleClass="readonly_tb"/> 
+                        </td>
+                        
+                        
+                    </tr>
+                </table>
+                
+                
+                <apex:commandButton id="importColl"
+                                    value="Update Refresh Counts [Batch] " action="{!Refreshcounts}" />
+                
+                
+                <apex:pageBlock ></apex:pageBlock>
+                
+                <div id="DivSuccess">
+                    
+                </div>
+                
+            </apex:pageBlock>
+        </apex:form>
+    </div> <!--MaterContainer -->
+</apex:page>

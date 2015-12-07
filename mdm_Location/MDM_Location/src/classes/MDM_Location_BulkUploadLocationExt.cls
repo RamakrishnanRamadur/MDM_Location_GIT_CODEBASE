@@ -198,7 +198,7 @@ public with sharing class MDM_Location_BulkUploadLocationExt {
                 system.debug('HeaderRow'+HeaderRow);
                 system.debug('result[0]'+ result[0]);                
                 IsValidRecord = false;
-                errmessage = errmessage + 'Invaild file format: Incorrect heder row ';
+                errmessage = errmessage + 'Invaild file format: Incorrect header row. Check Upper/Lower case, Space and Delimiter in header row.';
             }
             if(IsValidRecord)
             {
@@ -209,7 +209,10 @@ public with sharing class MDM_Location_BulkUploadLocationExt {
                     locBulkUploadLocation.Uploaded_Row_Original__c= result[i];
                     locBulkUploadLocation.IsProcessed__c= false;
                     locBulkUploadLocation.MDM_Source__c= locationSource;
+                    if(locBulkUploadLocation.Uploaded_Row_Original__c != '')
+                    {
                     llist.add(locBulkUploadLocation);
+                    }
                     //IsValidRecord = true;   
                     //String validationErrMsg  = '';  
                     //csvRecordData = result[i].split(',');

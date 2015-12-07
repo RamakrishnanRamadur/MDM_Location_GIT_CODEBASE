@@ -86,6 +86,34 @@
         <type>TextArea</type>
     </fields>
     <fields>
+        <fullName>Status__c</fullName>
+        <description>Various status of the upload record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Various status of the upload record</inlineHelpText>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NONE</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VALID RECORD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INVALID ROW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INVALID RECORD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>Uploaded_Row_Original__c</fullName>
         <externalId>false</externalId>
         <label>Uploaded_Row_Original</label>

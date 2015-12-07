@@ -28,7 +28,7 @@ trigger MDM_Location_UpsertLocation on MDM_Location__c (after Insert, after upda
         oLocation_Stage.SourceSystem__c= srcID.ID;// oLocation.SourceSystem__c;
         String str = oLocation.id;
         oLocation_Stage.IdFromSource__c = str;
-         //additional fields start
+        //additional fields 
         oLocation_Stage.TDLinxNumber__c= oLocation.TDLinxNumber__c; 
         oLocation_Stage.GeoLevel__c= oLocation.GeoLevel__c; 
         oLocation_Stage.GeoScore__c= oLocation.GeoScore__c; 
@@ -43,7 +43,7 @@ trigger MDM_Location_UpsertLocation on MDM_Location__c (after Insert, after upda
         oLocation_Stage.Effective_End_Date__c= oLocation.Effective_End_Date__c;
         oLocation_Stage.Time_Zone__c= oLocation.Time_Zone__c;
         oLocation_Stage.UTCOffset__c= oLocation.UTCOffset__c;
-        //additional fields end
+        oLocation_Stage.EstablishSourceLinkOnly__C= oLocation.EstablishSourceLinkOnly__C;
         if(oLocation.ValidateUpsert__c == true)
         {
             listLocations.add(oLocation_Stage);

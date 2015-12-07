@@ -232,6 +232,17 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>EstablishSourceLinkOnly__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>EstablishSourceLinkOnly</description>
+        <externalId>false</externalId>
+        <inlineHelpText>EstablishSourceLinkOnly</inlineHelpText>
+        <label>EstablishSourceLinkOnly</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>FIP__c</fullName>
         <externalId>false</externalId>
         <label>FIPs</label>
@@ -624,17 +635,18 @@
     <label>Location</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Address_1__c</columns>
         <columns>ValidateUpsert__c</columns>
         <columns>UPDATEDBY_USER</columns>
         <columns>GooglePlaceID__c</columns>
         <columns>GoldenRecordID__c</columns>
         <columns>GeoLevel__c</columns>
         <columns>GeoScore__c</columns>
-        <columns>OBJECT_ID</columns>
         <columns>DataOverrideFlag__c</columns>
         <columns>CREATEDBY_USER</columns>
         <columns>Time_Zone__c</columns>
-        <columns>NAME</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
         <language>en_US</language>

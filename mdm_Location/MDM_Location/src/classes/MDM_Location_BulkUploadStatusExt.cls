@@ -1,4 +1,8 @@
 public class MDM_Location_BulkUploadStatusExt {
+    public integer totalrowsinupload   { public get; public set ; }
+    public integer totalinvalidrowsinupload   { public get; public set ; }
+    public integer totalinvalidrecordsinupload   { public get; public set ; }
+    public integer totalvalidrecordsinupload   { public get; public set ; }
 private integer counter=0;  //keeps track of the offset
     private integer list_size=200; //sets the page size or number of rows
     public integer total_size; //used to show user the total size of the list
@@ -205,5 +209,10 @@ private integer counter=0;  //keeps track of the offset
         {
             Uploadlocations = [SELECT Name,Id,Uploaded_Row_Original__c,Status_Message__c FROM MDM_BulkUpload__c  where Name = : SelectedUPloadNamesValue and Status_Message__c like 'Error%' limit :list_size offset:counter ];//  where uploadName__c = : SelectedUPloadNamesValue ];
         }
+      totalrowsinupload = [select count()  FROM MDM_BulkUpload__c  where name = : SelectedUPloadNamesValue];
+      totalinvalidrowsinupload = [select count()  FROM MDM_BulkUpload__c  where name = : SelectedUPloadNamesValue and   status__C = 'INVALID ROW'];
+      totalinvalidrecordsinupload = [select count()  FROM MDM_BulkUpload__c  where name = : SelectedUPloadNamesValue and   status__C = 'INVALID RECORD'];
+      totalvalidrecordsinupload = [select count()  FROM MDM_BulkUpload__c  where name = : SelectedUPloadNamesValue and   status__C = 'VALID RECORD'];
+        
     } 
 }

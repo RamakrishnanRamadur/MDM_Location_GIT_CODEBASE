@@ -18,19 +18,23 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
     global list<MDM_BulkUpload__c> blList;
     global String locationSource;
     global String locationSourceName;
-    global MDM_Location_ValidateLocationbt(){
+    global MDM_Location_ValidateLocationbt(string pfilename){
         //blList=al;
+        UploadName= pfilename;
     }
     
     global Iterable<MDM_BulkUpload__C> start(Database.BatchableContext BC){
         AllIdfromSource = new Set<String>();
         batchStartdt =  Datetime.now().format('MM/dd/yyyy hh:mm a');
-        MDM_BulkUpload__C locblkLoc=  [SELECT Name,MDM_Source__c FROM MDM_BulkUpload__C where IsProcessed__c  = false limit 1]; 
-        UploadName = locblkLoc.Name;
+        MDM_BulkUpload__C locblkLoc=  [SELECT Name,MDM_Source__c FROM MDM_BulkUpload__C where Name  =: UploadName limit 1]; 
+        
+        //MDM_BulkUpload__C locblkLoc=  [SELECT Name,MDM_Source__c FROM MDM_BulkUpload__C where IsProcessed__c  = false limit 1]; 
+        //UploadName = locblkLoc.Name;
+        
         //Location_Source__c ls = [SELECT Id, Name FROM Location_Source__c where id= : locblkLoc.Location_Source__c limit 1];
         locationSource = locblkLoc.MDM_Source__c ;
         
-        blList= [SELECT ID,Name, Uploaded_Row_Original__c  FROM MDM_BulkUpload__C where name = : locblkLoc.name and IsProcessed__c  = false limit 5000]; 
+        blList= [SELECT ID,Name, Uploaded_Row_Original__c  FROM MDM_BulkUpload__C where name = : locblkLoc.name  and IsProcessed__c  = false limit 5000]; 
         //Query ='SELECT Name, LocationInfoRaw__c  FROM Master_Location_BulkUploadLocation__c where name = : locblkLoc.name limit 100';
         //return Database.getQueryLocator(query);
         system.debug('Iterable<MDM_BulkUpload__C > start' + blList);
@@ -84,7 +88,7 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
         for (Integer i = 0; i < scope.size(); i++){
             isValidRecord = true;
             IsValidRow = true;   
-            validationErrMsg  = 'Error: ';
+            validationErrMsg  = 'Error: Invalid Row: ';
             string csvRecord =  scope[i].Uploaded_Row_Original__c;
             //csvRecord = csvRecord.replace('&#124;', '|');
             if((delimitercharacter == '&#124;') ||(delimitercharacter == '|'))
@@ -96,54 +100,58 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
             system.debug('step 0.1 csvRecordData.size() ' + csvRecord + ' : ' + 'delimitercharacter  '+ delimitercharacter ); 
             if(csvRecordData.size() != 19 )
             {
-                validationErrMsg = validationErrMsg + ' Invalid Row: Number of columns: '+ i;
+                validationErrMsg = validationErrMsg + '   Number of columns: '+ i;
                 IsValidRow = false;
             }
-            if(!locTypes.contains(csvRecordData[0].toUpperCase()))
+            else
             {
-                validationErrMsg = validationErrMsg + ' Invlaid Location Type,';
-                system.debug('Error Invalid Location Type'+ csvRecordData[0]);
-                IsValidRow = false;
-            }
-            //Location status validation
-            if(!locStatus.contains(csvRecordData[2].toUpperCase()))
-            {
-                validationErrMsg = validationErrMsg + ' Invlaid Location Status,';
-                system.debug('Error Invalid Location Status'+ csvRecordData[2]);
-                IsValidRow = false;
-            }  
-            
-            if(csvRecordData[3].trim() == '' )
-            {
-                validationErrMsg = validationErrMsg + ' Name Can not be blank ' + csvRecordData.size();
-                IsValidRow = false;
-            }
-            string lat = csvRecordData[12].replace('.','');
-            lat = lat.replace('+','');
-            lat = lat.replace('-','');
-            string lon = csvRecordData[13].replace('.','');
-            lon = lon .replace('+','');
-            lon = lon .replace('-','');
-            system.debug('debug LAT' + lat  + ' ' +csvRecordData[12] ); 
-            system.debug('debug LON' + lon  +' '  + csvRecordData[13]); 
-            if(!lat.isNumericspace()|| !lon.isNumericspace() )
-            {
+                if(!locTypes.contains(csvRecordData[0].toUpperCase()))
+                {
+                    validationErrMsg = validationErrMsg + ' Invlaid Location Type,';
+                    system.debug('Error Invalid Location Type'+ csvRecordData[0]);
+                    IsValidRow = false;
+                }
+                //Location status validation
+                if(!locStatus.contains(csvRecordData[2].toUpperCase()))
+                {
+                    validationErrMsg = validationErrMsg + ' Invlaid Location Status,';
+                    system.debug('Error Invalid Location Status'+ csvRecordData[2]);
+                    IsValidRow = false;
+                }  
                 
-                validationErrMsg = validationErrMsg + ' Invalid Row Longitude / Latitude is not number  @ '+ i;
-                IsValidRow = false; 
-                
+                if(csvRecordData[3].trim() == '' )
+                {
+                    validationErrMsg = validationErrMsg + ' Name Can not be blank ' + csvRecordData.size();
+                    IsValidRow = false;
+                }
+                string lat = csvRecordData[12].replace('.','');
+                lat = lat.replace('+','');
+                lat = lat.replace('-','');
+                string lon = csvRecordData[13].replace('.','');
+                lon = lon .replace('+','');
+                lon = lon .replace('-','');
+                system.debug('debug LAT' + lat  + ' ' +csvRecordData[12] ); 
+                system.debug('debug LON' + lon  +' '  + csvRecordData[13]); 
+                if(!lat.isNumericspace()|| !lon.isNumericspace() )
+                {
+                    
+                    validationErrMsg = validationErrMsg + '   Longitude / Latitude is not number  @ '+ i;
+                    IsValidRow = false; 
+                    
+                }
+                system.debug('AllIdfromSource' + ' ' +AllIdfromSource ); 
+                if(AllIdfromSource.contains(csvRecordData[18].trim()))
+                {
+                    validationErrMsg = validationErrMsg + '   duplicate found '+ i;
+                    IsValidRow = false; 
+                    
+                }
+                locLocationStageObj = new MDM_Location_Stage__c(); 
+                locmasterLocationObj = new MDM_Location__c();
             }
-            system.debug('AllIdfromSource' + ' ' +AllIdfromSource ); 
-            if(AllIdfromSource.contains(csvRecordData[18].trim()))
-            {
-                validationErrMsg = validationErrMsg + ' Invalid Row duplicate found '+ i;
-                IsValidRow = false; 
-                
-            }
-            locLocationStageObj = new MDM_Location_Stage__c(); 
-            locmasterLocationObj = new MDM_Location__c();
             if(IsValidRow)
             {
+                validationErrMsg  = 'Error:RECORD ';
                 validrows= validrows + 1;
                 string csvr = csvRecordData[0];
                 csvr = String.valueOf(csvr).trim();
@@ -179,7 +187,28 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                 locLocationStageObj.IdFromSource__c = csvRecordData[18];
                 locLocationStageObj.UploadName__c = UploadName;
                 locLocationStageObj.SourceSystem__c = locationSource;
+                if(locationSourceName  == 'TDLinx') 
+                {
+                    locLocationStageObj.TDLinxNumber__c = locLocationStageObj.IdFromSource__c;
+                }
+                csvr = String.valueOf(csvRecordData[18]).trim();
                 
+                if(locationSourceName  == 'SalesForce' && csvr != '') 
+                {
+                      system.debug('step 333 SalesForce IsValidRecord ' + csvr); 
+                    List<MDM_Location__c> tl = new List<MDM_Location__c>();
+                    try
+                    {
+                        tl = [select id from MDM_Location__c where id =: csvr ];
+                    }
+                    catch(Exception e)
+                    {
+                        system.debug('============== Invalid Salesforce id  exception caught!!!=============');                        
+                        validationErrMsg = validationErrMsg + ' Invalid SaleforceID for update ['+ csvr + '],';
+                        IsValidRecord = false;
+                    } 
+                    
+                }
                 //set country
                 csvr = String.valueOf(csvRecordData[9]).trim();
                 if(countryMap.containsKey(csvr))
@@ -230,23 +259,39 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                 if(locTradeChannelsMap.containsKey(csvr.toUpperCase())|| csvr == '')
                 {
                     locLocationStageObj.TradeChannel__c = locTradeChannelsMap.get(csvr);
+                    List<MDM_TradeSubChannel__c> locTradeSubChannelsTradeChannel = getTradeSubChannelsTradeChannel(locTradeChannelsMap.get(csvr));
+                    Map<String, String>  locTradeSubChannelsTradeChannelMap = new Map<String,String>();
+                    for(MDM_TradeSubChannel__c t : locTradeSubChannelsTradeChannel ){
+                        locTradeSubChannelsTradeChannelMap.put(t.Name.toUpperCase(), t.ID);}
+                    //set Tradesubchannel 
+                    csvr = String.valueOf(csvRecordData[17]).trim();
+                    if(locTradeSubChannelsTradeChannelMap.containsKey(csvr.toUpperCase())|| csvr == '')
+                    {
+                        locLocationStageObj.TradeSubChannel__c = locTradeSubChannelsTradeChannelMap.get(csvr);
+                    }
+                    else
+                    {
+                        validationErrMsg = validationErrMsg + '  Invalid Trade Sub Channel ['+ csvr + '],';
+                        IsValidRecord = false;
+                    } 
                 }
                 else
                 {
                     validationErrMsg = validationErrMsg + '  Invalid Trade Channel  ['+ csvr + '],';
                     IsValidRecord = false;
                 } 
+
                 //set Tradesubchannel 
-                csvr = String.valueOf(csvRecordData[17]).trim();
-                if(locTradeSubChannelsMap.containsKey(csvr.toUpperCase())|| csvr == '')
-                {
-                    locLocationStageObj.TradeSubChannel__c = locTradeSubChannelsMap.get(csvr);
-                }
-                else
-                {
-                    validationErrMsg = validationErrMsg + '  Invalid Trade Sub Channel ['+ csvr + '],';
-                    IsValidRecord = false;
-                } 
+                /*csvr = String.valueOf(csvRecordData[17]).trim();
+if(locTradeSubChannelsMap.containsKey(csvr.toUpperCase())|| csvr == '')
+{
+locLocationStageObj.TradeSubChannel__c = locTradeSubChannelsMap.get(csvr);
+}
+else
+{
+validationErrMsg = validationErrMsg + '  Invalid Trade Sub Channel ['+ csvr + '],';
+IsValidRecord = false;
+} */
                 // Create the location master object
                 system.debug('step 1 Create the master object ' + csvr);                    
                 //Location__c locmasterLocationObj = new Location__c();
@@ -266,7 +311,6 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                 locmasterLocationObj.Latitude__c = locLocationStageObj.Latitude__c;
                 locmasterLocationObj.Longitude__c = locLocationStageObj.Longitude__c;
                 locmasterLocationObj.SourceSystem__c = locLocationStageObj.SourceSystem__c;
-                
                 locmasterLocationObj.TradeChannel__c=locLocationStageObj.TradeChannel__c;
                 locmasterLocationObj.TradeSubChannel__c = locLocationStageObj.TradeSubchannel__c;
                 locmasterLocationObj.OwningCompany__c = locLocationStageObj.OwningCompany__c;
@@ -290,6 +334,7 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                     {
                         ///insert locmasterLocationObj;
                         ///validationErrMsg = 'Success: Validate and insert/update into Master';
+                        locmasterLocationObj.id = locLocationStageObj.IdFromSource__c;
                         locationMasterList.add(locmasterLocationObj);
                         
                     }
@@ -328,20 +373,31 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                 //updateRecodsProcessed(scope[i].ID,'Error'+validationErrMsg );
                 scope[i].Status_Message__c = validationErrMsg;
                 scope[i].IsProcessed__c = true;
+                
+                    if(validationErrMsg.contains('Error: Invalid Row'))
+                    {
+                        scope[i].Status__c = 'INVALID ROW';
+                    }
+                   
+                    if(validationErrMsg.contains('Error:RECORD'))
+                    {
+                        scope[i].Status__c = 'INVALID RECORD';
+                    }
             }
             
             system.debug('locmasterLocationObj> insert' + locmasterLocationObj);
-            
+
             
         }//for end
-        
+        Boolean status;
         if(locationSourceName  == 'SalesForce') {
             // insert master
-            Database.SaveResult[] srList = Database.insert(locationMasterList, false);
+            //Database.SaveResult[] srList = Database.insert(locationMasterList, false);
+            Database.UpsertResult[] srList = Database.upsert(locationMasterList, MDM_Location__c.id ,false);
             integer inx = 0;
             string dbmsgStr = '';
             System.debug('srList size  :' + srList.size());
-            for (Database.SaveResult sr: srList) {
+            for (Database.UpsertResult sr: srList) {
                 System.debug('sr.isSuccess()  : ' + sr.isSuccess());
                 if (sr.isSuccess()) {
                     validrecords = validrecords + 1;
@@ -373,7 +429,15 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                     if(ll.id == locationMasterList[inx].GoldenRecordID__c){
                         ll.Status_Message__c = dbmsgStr ;
                         ll.IsProcessed__c = true;
+                        status=dbmsgStr.contains('Successfully');
+                        if(status)
+                        {
+                            ll.Status__c = 'VALID RECORD';
+                        }            						
+                        
                     }
+                    
+                    
                 }
                 inx= inx + 1;
             }// for end
@@ -416,7 +480,15 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
                     if(ll.id == locationStageList[inx].GoldenRecordID__c){
                         ll.Status_Message__c = dbmsgStr ;
                         ll.IsProcessed__c = true;
+                        status=dbmsgStr.contains('Successfully');
+                        if(status)
+                        {
+                            ll.Status__c = 'VALID RECORD';
+                        }
+                        
+                        
                     }
+                    
                 }
                 inx= inx + 1;
                 
@@ -460,7 +532,7 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
             validrows = [SELECT count() FROM MDM_BulkUpload__c  where name = :UploadName];
             invalidrows = [SELECT count() FROM MDM_BulkUpload__c  where name = :UploadName and IsProcessed__c  = true and status_message__C  like '%Invalid row%'];
             invalidrecords =[ SELECT count() FROM MDM_BulkUpload__c  where name = :UploadName and IsProcessed__c  = true and status_message__C  like '%Error%'];
-            String Msg6= 'Numner of rows in file : '+ validrows+'.\n';
+            String Msg6= 'Number of rows in file : '+ validrows+'.\n';
             String Msg7= 'Invalid rows in file : ' + invalidrows+'\n';
             String Msg8= '';// 'Valid records : ' + validrecords+'\n';
             String Msg9= 'Invalid records :' + invalidrecords+'\n';
@@ -553,7 +625,12 @@ global with sharing class MDM_Location_ValidateLocationbt implements Database.Ba
         
         return chl;
     }
-    
+    public List<MDM_TradeSubChannel__c> getTradeSubChannelsTradeChannel(string tradechannel)
+    {
+        List<MDM_TradeSubChannel__c> chl =  new List<MDM_TradeSubChannel__c>();
+        chl = [SELECT Id, Name FROM MDM_TradeSubChannel__c where  tradechannel__C = :tradechannel];     
+        return chl;
+    }
     // to get list of location Status from location's picklist
     public Set<String> getLocationStatus()
     {

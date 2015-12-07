@@ -41,7 +41,7 @@ global list<MDM_BulkUpload__c> blList;
             system.debug('============== email exception caught!!!=============');
         }
         //kick of the validation process
-        MDM_Location_ValidateLocationbt  objValidatebatch = new MDM_Location_ValidateLocationbt();
+        MDM_Location_ValidateLocationbt  objValidatebatch = new MDM_Location_ValidateLocationbt(filename);
         Database.executebatch(objValidatebatch,100);
     }
     public MDM_Location_BulkUploadLocationExtbt(ApexPages.StandardController controller) {

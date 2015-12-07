@@ -5,7 +5,7 @@
     <apex:form id="myform">
         <apex:pagemessages />
         
-        <apex:pageBlock >  
+        <apex:pageBlock id="myblock">  
             <apex:pageBlockSection Title="Welcome to Location Upload status" columns="2"  collapsible="false">  
                 <table>
                     <tr><td style="width:50">
@@ -17,6 +17,7 @@
                             </apex:selectList>
                         </td>
                     </tr>
+                    
                     <tr><td></td>
                         <td>
                             <apex:selectRadio value="{!selectedRecordtype}">
@@ -33,41 +34,44 @@
                         </td>
                     </tr>
                     
-                    <!-- <tr>
-<td>  Number of rows</td>
-<td>
-
-<apex:inputText value="{!NumberofSelectedUPloadrows}" html-readonly="true" />       
-</td>
-</tr>
--->
+                    
                 </table>
             </apex:pageBlockSection>
-        </apex:pageBlock> 
-        <apex:pageBlock title="location list. 200 locations per page" id="thePageBlock" > 
-            <apex:commandButton action="{!Previous}" title="Previous" value="Previous"  />
-            <apex:commandButton action="{!Next}" title="Next" value="Next "  disabled="{!DisableNext}"   />
-                         <apex:outputText style="font-weight:800" value="Page Number:"/><apex:outputLabel value="{!PageNumber}"/ >
-                                                  <apex:outputText style="font-weight:800" value="of "/><apex:outputLabel value="{!TotalPages}"/ >
-          <!--  <apex:outputText style="font-weight:800" value="Upload Name:"/>
-            <apex:outputLabel value="{!uploadName}" ></apex:outputLabel> 
-            <apex:outputText style="font-weight:800" value="Filename:"/><apex:outputLabel value="{!uploadFileName}" ></apex:outputLabel> 
-            <apex:outputText style="font-weight:800" value="Upload Date:"/><apex:outputLabel value="{!uploadName}" ></apex:outputLabel> -->
-            <apex:actionRegion >
-                
-                <apex:pageBlockSection title="Loaded Locations" columns="1"    collapsible="false"  id="thePageBlock">
-                    <apex:commandButton value="Export to excel"
-                                        action="{!Exporttoexcel}" disabled="!enableExportButton "  />                          
-                    <apex:pageblocktable value="{!Uploadlocations}" var="obj">
-                        <!--apex:column value="{!Obj.Name}" headerValue="Location upload name"  /> -->
-                        <apex:column value="{!Obj.Uploaded_Row_Original__c}" headerValue="Location Data"  /> 
-                        <apex:column value="{!Obj.Status_Message__c }" headerValue="Status Message "  /> 
-                    </apex:pageblocktable>     
-                    <apex:facet name="footer">Showing Page # {!pageNumber} of {!totalPages}</apex:facet>     
+              <script>
+            twistSection(document.getElementById("{!$Component.myform.myblock.Statusbycountsection}").childNodes[0]);
+            //twistSection(document.getElementById('img_{!$Component.Statusbycountsection}'));           
+            </script>
+            <apex:pageBlockSection id="Statusbycountsection" columns="2" collapsible="true" title="Status by count" >
+                <apex:outputText value="Total rows in upload:"/><apex:outputLabel value="{!totalrowsinupload}"/ >
+                <apex:outputText value=" Invalid rows in upload:"/><apex:outputLabel value="{!totalinvalidrowsinupload}"/ >
+                <apex:outputText value=" Invalid records in upload"/><apex:outputLabel value="{!totalinvalidrecordsinupload}"/ >
+                <apex:outputText style="font-weight:800"  value=" Valid records in upload"/><apex:outputLabel value="{!totalvalidrecordsinupload}"/ >
                 </apex:pageBlockSection>
-                
-            </apex:actionRegion>
-        </apex:pageBlock>           
-        
-    </apex:form>
-</apex:page>
+                </apex:pageBlock> 
+                <apex:pageBlock title="location list. 200 locations per page" id="thePageBlock" > 
+                    <apex:commandButton action="{!Previous}" title="Previous" value="Previous"  />
+                    <apex:commandButton action="{!Next}" title="Next" value="Next "  disabled="{!DisableNext}"   />
+                    <apex:outputText style="font-weight:800" value="Page Number:"/><apex:outputLabel value="{!PageNumber}"/ >
+                    <apex:outputText style="font-weight:800" value="of "/><apex:outputLabel value="{!TotalPages}"/ >
+                    <!--  <apex:outputText style="font-weight:800" value="Upload Name:"/>
+<apex:outputLabel value="{!uploadName}" ></apex:outputLabel> 
+<apex:outputText style="font-weight:800" value="Filename:"/><apex:outputLabel value="{!uploadFileName}" ></apex:outputLabel> 
+<apex:outputText style="font-weight:800" value="Upload Date:"/><apex:outputLabel value="{!uploadName}" ></apex:outputLabel> -->
+                    <apex:actionRegion >
+                        
+                        <apex:pageBlockSection title="Loaded Locations" columns="1"    collapsible="false"  id="thePageBlock">
+                            <apex:commandButton value="Export to excel"
+                                                action="{!Exporttoexcel}" disabled="!enableExportButton "  />                          
+                            <apex:pageblocktable value="{!Uploadlocations}" var="obj">
+                                <!--apex:column value="{!Obj.Name}" headerValue="Location upload name"  /> -->
+                                <apex:column value="{!Obj.Uploaded_Row_Original__c}" headerValue="Location Data"  /> 
+                                <apex:column value="{!Obj.Status_Message__c }" headerValue="Status Message "  /> 
+                            </apex:pageblocktable>     
+                            <apex:facet name="footer">Showing Page # {!pageNumber} of {!totalPages}</apex:facet>     
+                        </apex:pageBlockSection>
+                        
+                    </apex:actionRegion>
+                    </apex:pageBlock>           
+                    
+                    </apex:form>
+                </apex:page>

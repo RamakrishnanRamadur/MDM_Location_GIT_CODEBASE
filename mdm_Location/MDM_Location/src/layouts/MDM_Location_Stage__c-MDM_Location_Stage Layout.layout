@@ -91,6 +91,10 @@
                 <behavior>Edit</behavior>
                 <field>Census_Tract__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EstablishSourceLinkOnly__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

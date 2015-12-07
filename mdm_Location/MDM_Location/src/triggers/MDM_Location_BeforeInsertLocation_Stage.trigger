@@ -12,7 +12,7 @@ trigger MDM_Location_BeforeInsertLocation_Stage on MDM_Location_Stage__c (before
         system.debug('Stage before insert'+ strSourceSystem + ' : ' + strIdFromSource );
         List<MDM_Location_Stage__c>  rlist = new List<MDM_Location_Stage__c>();
         rlist =   [SELECT Id FROM MDM_Location_Stage__c where SourceSystem__c =:strSourceSystem.trim()  AND IdFromSource__c =:strIdFromSource.trim() ];
-        delete rlist; 
+        delete rlist;   
         //  }
     }
 }
